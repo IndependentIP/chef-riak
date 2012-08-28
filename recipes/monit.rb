@@ -6,6 +6,7 @@ monitrc "riak" do
   variables(
     :process_matching => node[:riak][:monit][:process_matching],
     :start_program => node[:riak][:monit][:start_program],
+    :stop_program => node[:riak][:monit][:stop_program],
     :http_host => node[:riak][:monit][:http_host],
     :http_port => node[:riak][:monit][:http_port]
   )

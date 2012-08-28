@@ -1,4 +1,5 @@
 default.riak.monit.process_matching = "/usr/lib/riak/erts-5.9.1/bin/beam.smp"
-default.riak.monit.start_program = "/usr/sbin/riak"
+default.riak.monit.start_program = "/usr/bin/env service riak start"
+default.riak.monit.stop_program = "/usr/bin/env service riak stop"
 default.riak.monit.http_host = "localhost"
 default.riak.monit.http_port = "8098"
