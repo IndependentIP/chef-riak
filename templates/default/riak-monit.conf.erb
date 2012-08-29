@@ -1,8 +1,4 @@
-check process riak matching "<%= @process_matching %>"
+check program riak-ping with path "/etc/monit/bin/riak-check.sh"
   group riak
   start program = "<%= @start_program %>"
-  stop program = "<%= @stop_program %>"
-  if failed host <%= @http_host %> port <%= @http_port %> protocol http
-    and request "/"
-    with timeout 2 seconds for 2 cycles
-  then restart
+  if status != 0 then restart

@@ -2,13 +2,29 @@
 
 include_recipe "monit::default"
 
+directory "/etc/monit/bin" do
+  owner "root"
+  group "root"
+  mode 0755
+  action :create
+  recursive true
+end
+
+file "/etc/monit/bin/riak-check.sh" do
+  owner "root"
+  group "root"
+  mode 0755
+  content <<-EOS
+#!/bin/bash
+/usr/sbin/riak ping
+exit $?
+EOS
+  action :create
+end
+
 monitrc "riak" do
   variables(
-    :process_matching => node[:riak][:monit][:process_matching],
-    :start_program => node[:riak][:monit][:start_program],
-    :stop_program => node[:riak][:monit][:stop_program],
-    :http_host => node[:riak][:monit][:http_host],
-    :http_port => node[:riak][:monit][:http_port]
+    :start_program => node[:riak][:monit][:start_program]
   )
   template_source "riak-monit.conf.erb"
   template_cookbook "riak"
